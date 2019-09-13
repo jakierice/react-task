@@ -28,6 +28,6 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["src", "types"],
+  "include": ["pages", "types"],
   "exclude": ["node_modules", "dist"]
 }
