@@ -19,6 +19,8 @@
     "socket.io": "^2.2.0"
   },
   "devDependencies": {
+    "@types/node": "^12.7.5",
+    "@types/react": "^16.9.2",
     "@typescript-eslint/eslint-plugin": "^2.2.0",
     "@typescript-eslint/parser": "^2.2.0",
     "eslint": "^6.3.0",
