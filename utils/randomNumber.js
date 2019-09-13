@@ -8,7 +8,7 @@ function getRandomNumber(min, max) {
   return Math.random() * (max - min) + min;
 }
 
-function subscribe(cb) {
+export function subscribe(cb) {
   var timeoutID;
 
   function pushRandomNumber() {
@@ -29,5 +29,3 @@ function subscribe(cb) {
 
   return unsubscribe;
 }
-
-exports.subscribe = subscribe;
