@@ -5,7 +5,9 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "node index.js"
+    "dev": "next",
+    "buid": "next build",
+    "start": "next build"
   },
   "dependencies": {
     "dotenv": "^6.2.0",
