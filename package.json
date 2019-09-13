@@ -11,5 +11,10 @@
   },
   "scripts": {
     "start": "node index.js"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0",
+    "react-testing-library": "^8.0.1",
+    "standard-version": "^7.0.0"
   }
 }
