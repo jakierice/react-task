@@ -5,12 +5,12 @@ const randomNumber = require('../utils/randomNumber');
 const next = require('next');
 
 const dev = process.env.NODE_ENV !== 'production';
+const PORT = dev ? 3000 : process.env.PORT;
 const nextApp = next({ dev });
 const nextHandler = nextApp.getRequestHandler();
-const port = process.env.PORT || 3000;
 
-io.on('connection', function (socket) {
-  const unsubscribe = randomNumber.subscribe(function (number) {
+io.on('connection', function(socket) {
+  const unsubscribe = randomNumber.subscribe(function(number) {
     console.log(number);
 
     const data = {
@@ -21,8 +21,8 @@ io.on('connection', function (socket) {
     socket.emit('now', data);
   });
 
-  socket.on('disconnect', function () {
-    console.log('disconnect')
+  socket.on('disconnect', function() {
+    console.log('disconnect');
     unsubscribe();
   });
 });
@@ -32,8 +32,8 @@ nextApp.prepare().then(() => {
     return nextHandler(req, res);
   });
 
-  http.listen(port, err => {
+  http.listen(PORT, err => {
     if (err) throw err;
-    console.log(`> Listening on http://localhost:${port}`);
+    console.log(`> Listening on http://localhost:${PORT}`);
   });
 });
