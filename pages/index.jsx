@@ -19,7 +19,7 @@ class Home extends React.Component {
   }
 
   render() {
-    return <div>{this.state.hello}</div>;
+    return <div data-testid="home-root">{this.state.hello}</div>;
   }
 }
 
