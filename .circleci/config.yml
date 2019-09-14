@@ -20,7 +20,7 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints:
-            - '05:c1:db:01:e9:11:2c:3f:97:5e:2c:99:94:76:ef:5b'
+            - '3b:dc:67:94:88:df:08:40:94:28:48:ce:c7:25:5b:4bb'
 
       # Download and cache dependencies
       - restore_cache:
@@ -29,15 +29,12 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: npm install
+      # - run: npm install
 
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      # # run tests!
-      # - run: npm test
       # run standard-version release process
       - run: npm run release
-      - run: git push --follow-tags origin master
