@@ -36,8 +36,6 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      # # run tests!
-      # - run: npm test
       # run standard-version release process
       - run: npm run release
-      - run: git push --follow-tags origin master
+      - run: git push --follow-tags
