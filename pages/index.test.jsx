@@ -6,7 +6,7 @@ import '@testing-library/jest-dom/extend-expect';
 import Home from './index';
 
 test('index page loads', () => {
-  const { getByText, getByTestId } = render(<Home />);
+  const { getByTestId } = render(<Home />);
 
   expect(getByTestId('home-root')).toBeInTheDocument();
 });
