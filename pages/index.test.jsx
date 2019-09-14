@@ -8,7 +8,5 @@ import Home from './index';
 test('index page loads', () => {
   const { getByText, getByTestId } = render(<Home />);
 
-  // fireEvent.click(getByText('Load Greeting'))
-
   expect(getByTestId('home-root')).toBeInTheDocument();
 });
