@@ -17,10 +17,10 @@ jobs:
     working_directory: ~/react-task
 
     steps:
-    - add_ssh_keys:
-          fingerprints:
-            - "SO:ME:FIN:G:ER:PR:IN:T"
       - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - 'SO:ME:FIN:G:ER:PR:IN:T'
 
       # Download and cache dependencies
       - restore_cache:
