@@ -21,9 +21,9 @@
     "socket.io-client": "^2.2.0"
   },
   "devDependencies": {
+    "@testing-library/react": "^9.1.4",
     "eslint": "^6.3.0",
     "jest": "^24.9.0",
-    "react-testing-library": "^8.0.1",
     "standard-version": "^7.0.0"
   }
 }
