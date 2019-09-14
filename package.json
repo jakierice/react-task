@@ -28,6 +28,7 @@
     "@testing-library/jest-dom": "^4.1.0",
     "@testing-library/react": "^9.1.4",
     "babel-jest": "^24.9.0",
+    "babel-preset-next": "^1.2.0",
     "eslint": "^6.3.0",
     "jest": "^24.9.0",
     "standard-version": "^7.0.0"
