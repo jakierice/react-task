@@ -62,7 +62,12 @@ function Home() {
             <Legend />
             <Line type="monotone" dataKey="value" stroke="#FF5964" />
           </LineChart>
-          <BarChart width={730} height={250} data={randomNumberList}>
+          <BarChart
+            width={730}
+            height={250}
+            data={randomNumberList}
+            syncId="random-number-chart"
+          >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
             <YAxis />
