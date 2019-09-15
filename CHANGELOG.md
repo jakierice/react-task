@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.1.0](https://github.com/jakierice/react-task/compare/v0.0.83...v0.1.0) (2019-09-15)
+
+
+### Features
+
+* **bar-chart:** adds recharts bar chart boilerplate with randomNumberList data ([ddfbfa5](https://github.com/jakierice/react-task/commit/ddfbfa5))
+* **threshold-alert:** adds rangle slider and alert for random number threshold ([11155f2](https://github.com/jakierice/react-task/commit/11155f2))
+* **toast:** adds reach ui alert for toast alert mechanics ([5b64433](https://github.com/jakierice/react-task/commit/5b64433))
+
 ### [0.0.83](https://github.com/jakierice/react-task/compare/v0.0.82...v0.0.83) (2019-09-15)
 
 
