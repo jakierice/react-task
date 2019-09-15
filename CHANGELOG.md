@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.80](https://github.com/jakierice/react-task/compare/v0.0.79...v0.0.80) (2019-09-15)
+
+
+### Bug Fixes
+
+* **cicd:** LAST CONFIG ATTEMPT FOR SKIPPING VERSION COMMIT ([1463e78](https://github.com/jakierice/react-task/commit/1463e78))
+
 ### [0.0.79](https://github.com/jakierice/react-task/compare/v0.0.78...v0.0.79) (2019-09-15)
 
 
