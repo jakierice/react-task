@@ -5,6 +5,9 @@
 version: 2
 jobs:
   build:
+    branches:
+      only:
+        - master
     docker:
       # specify the version you desire here
       - image: circleci/node:8.3
@@ -20,7 +23,7 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints:
-            - '3b:dc:67:94:88:df:08:40:94:28:48:ce:c7:25:5b:4bb'
+            - "3b:dc:67:94:88:df:08:40:94:28:48:ce:c7:25:5b:4bb"
 
       # Download and cache dependencies
       - restore_cache:
@@ -38,3 +41,4 @@ jobs:
 
       # run standard-version release process
       - run: npm run release
+      - run: git push --follow-tags origin master
