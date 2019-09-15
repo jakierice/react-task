@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.14](https://github.com/jakierice/react-task/compare/v0.0.13...v0.0.14) (2019-09-15)
+
+### [0.0.4](https://github.com/jakierice/react-task/compare/v0.0.13...v0.0.4) (2019-09-15)
+
+### [0.0.3](https://github.com/jakierice/react-task/compare/v0.0.13...v0.0.3) (2019-09-15)
+
+### [0.0.13](https://github.com/jakierice/react-task/compare/v0.0.12...v0.0.13) (2019-09-15)
+
+
+### Bug Fixes
+
+* remove npm install from circleci ([db127aa](https://github.com/jakierice/react-task/commit/db127aa))
+* remove push from cicd step ([200e3e7](https://github.com/jakierice/react-task/commit/200e3e7))
+* remove push to master step from circleci config ([ab2a3b5](https://github.com/jakierice/react-task/commit/ab2a3b5))
+* use circleci gen ssh key ([6e4f6e8](https://github.com/jakierice/react-task/commit/6e4f6e8))
+
 ### [0.0.12](https://github.com/jakierice/react-task/compare/v0.0.11...v0.0.12) (2019-09-14)
 
 ### [0.0.11](https://github.com/jakierice/react-task/compare/v0.0.10...v0.0.11) (2019-09-14)
