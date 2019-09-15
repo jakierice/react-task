@@ -1,5 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  CartesianGrid,
+  BarChart,
+  Bar,
+} from 'recharts';
+import dayjs from 'dayjs';
 
 function Home() {
   const [currentRandomNumber, setCurrentRandomNumber] = useState({
@@ -12,7 +24,10 @@ function Home() {
     socket.on('random-number', data => {
       setCurrentRandomNumber(data);
       setNumberList(prevList => {
-        return prevList.concat(data);
+        return prevList.concat({
+          name: dayjs(data.timestamp).format('YYYYMMDDTHH:mm:ss'),
+          value: data.value,
+        });
       });
     });
 
@@ -33,11 +48,25 @@ function Home() {
           <button onClick={() => socket.close()}>Close connection</button>
           <button onClick={() => socket.open()}>Open connection</button>
           <strong>{currentRandomNumber.value}</strong>
-          <ul>
+          <LineChart
+            width={730}
+            height={250}
+            data={numberList}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+            syncId="random-number-chart"
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Line type="monotone" dataKey="value" stroke="#8884d8" />
+          </LineChart>
+          {/* <ul>
             {numberList.map((number, index) => (
               <li key={String(number.timestamp + index)}>{number.value}</li>
             ))}
-          </ul>
+          </ul> */}
         </section>
       </main>
     </React.Fragment>
