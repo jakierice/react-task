@@ -8,6 +8,8 @@ jobs:
     branches:
       only:
         - dev
+    tags:
+      ignore: /v.*/
     docker:
       # specify the version you desire here
       - image: circleci/node:8.3
