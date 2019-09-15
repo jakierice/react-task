@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 import {
+  ResponsiveContainer,
   LineChart,
   Line,
   XAxis,
@@ -35,7 +36,7 @@ function Home() {
       setCurrentRandomNumber(data);
       setRandomNumberList(prevList => {
         return prevList.concat({
-          timestamp: dayjs(data.timestamp).format('YYYYMMDDTHH:mm:ss'),
+          timestamp: dayjs(data.timestamp).format('YYMMDDTHH:mm:ss'),
           value: String(data.value),
         });
       });
@@ -85,34 +86,34 @@ function Home() {
             Random number alert threshold set to: {randomNumberAlertThreshold}
           </label>
           <strong>Current random number: {currentRandomNumber.value}</strong>
-          <LineChart
-            data={randomNumberList}
-            height={250}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-            syncId="random-number-chart"
-            width={730}
-          >j
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="timestamp" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Line type="monotone" dataKey="value" stroke="#FF5964" />
-          </LineChart>
-          <BarChart
-            data={randomNumberList}
-            height={250}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-            syncId="random-number-chart"
-            width={730}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="timestamp" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="value" fill="#2892D7" />
-          </BarChart>
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart
+              data={randomNumberList}
+              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+              syncId="random-number-chart"
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="timestamp" />
+              <YAxis domain={[-100, 100]} />
+              <Tooltip />
+              <Legend />
+              <Line type="monotone" dataKey="value" stroke="#FF5964" />
+            </LineChart>
+          </ResponsiveContainer>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart
+              data={randomNumberList}
+              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+              syncId="random-number-chart"
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="timestamp" />
+              <YAxis domain={[-100, 100]} />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="value" fill="#2892D7" />
+            </BarChart>
+          </ResponsiveContainer>
           {parseInt(currentRandomNumber.value) > randomNumberAlertThreshold && (
             <Alert
               style={{
