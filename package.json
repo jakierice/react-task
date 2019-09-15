@@ -13,6 +13,7 @@
     "release": "standard-version"
   },
   "dependencies": {
+    "@reach/alert": "^0.1.5",
     "dayjs": "^1.8.16",
     "dotenv": "^6.2.0",
     "dotenv-expand": "^4.2.0",
