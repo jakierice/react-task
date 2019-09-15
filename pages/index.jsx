@@ -62,6 +62,14 @@ function Home() {
             <Legend />
             <Line type="monotone" dataKey="value" stroke="#FF5964" />
           </LineChart>
+          <BarChart width={730} height={250} data={numberList}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="value" fill="#2892D7" />
+          </BarChart>
           {/* <ul>
             {numberList.map((number, index) => (
               <li key={String(number.timestamp + index)}>{number.value}</li>
