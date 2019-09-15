@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.78](https://github.com/jakierice/react-task/compare/v0.0.77...v0.0.78) (2019-09-15)
+
+
+### Bug Fixes
+
+* incomplete comment ([7b63347](https://github.com/jakierice/react-task/commit/7b63347))
+* remove eslint typescript config ([161dbd7](https://github.com/jakierice/react-task/commit/161dbd7))
+* **cicd:** totally remove git tagging from circledue to time constraints ([bb4aa17](https://github.com/jakierice/react-task/commit/bb4aa17))
+
+
+### Features
+
+* adds dayjs, recharts, and eslint deps ([3c76ac6](https://github.com/jakierice/react-task/commit/3c76ac6))
+* adds line-chart boilerplate ([1647b2c](https://github.com/jakierice/react-task/commit/1647b2c))
+
 ### [0.0.77](https://github.com/jakierice/react-task/compare/v0.0.76...v0.0.77) (2019-09-15)
 
 ### [0.0.76](https://github.com/jakierice/react-task/compare/v0.0.75...v0.0.76) (2019-09-15)
