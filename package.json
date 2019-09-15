@@ -2,6 +2,7 @@
   "name": "@jakie/corva-challenge",
   "version": "0.0.83",
   "author": "Jakie W. Rice",
+  "homepage": "https://corva-react-task.jakierice.now.sh/",
   "license": "MIT",
   "private": true,
   "scripts": {
