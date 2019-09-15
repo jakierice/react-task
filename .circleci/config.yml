@@ -41,4 +41,4 @@ jobs:
 
       # run standard-version release process
       - run: npm run release
-      - run: git push --follow-tags origin master
+      - run: git push --follow-tags
