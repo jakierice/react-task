@@ -11,18 +11,16 @@ const nextHandler = nextApp.getRequestHandler();
 
 io.on('connection', function(socket) {
   const unsubscribe = randomNumber.subscribe(function(number) {
-    console.log(number);
-
     const data = {
       value: number,
       timestamp: Number(new Date()),
     };
 
-    socket.emit('now', data);
+    socket.emit('random-number', data);
   });
 
   socket.on('disconnect', function() {
-    console.log('disconnect');
+    console.log('socket connection disconnected');
     unsubscribe();
   });
 });

@@ -4,8 +4,7 @@ module.exports = {
     es6: true,
     node: true,
   },
-  extends: 'plugin:@typescript-eslint/recommended',
-  parser: '@typescript-eslint/parser',
+  extends: 'eslint:recommended',
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
