@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.74](https://github.com/jakierice/react-task/compare/v0.0.73...v0.0.74) (2019-09-15)
+
+
+### Bug Fixes
+
+* **cicd:** add origin master target for tag push ([fc06fb6](https://github.com/jakierice/react-task/commit/fc06fb6))
+
 ### [0.0.73](https://github.com/jakierice/react-task/compare/v0.0.72...v0.0.73) (2019-09-15)
 
 ### [0.0.72](https://github.com/jakierice/react-task/compare/v0.0.71...v0.0.72) (2019-09-15)
