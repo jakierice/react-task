@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.38](https://github.com/jakierice/react-task/compare/v0.0.37...v0.0.38) (2019-09-15)
+
+
+### Bug Fixes
+
+* **cicd:** add new fingerprint for new circleci pipeline ([00fbb06](https://github.com/jakierice/react-task/commit/00fbb06))
+* **cicd:** remove push tags with master target ([792f2b7](https://github.com/jakierice/react-task/commit/792f2b7))
+
 ### [0.0.37](https://github.com/jakierice/react-task/compare/v0.0.36...v0.0.37) (2019-09-15)
 
 ### [0.0.36](https://github.com/jakierice/react-task/compare/v0.0.35...v0.0.36) (2019-09-15)
