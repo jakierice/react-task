@@ -8,6 +8,8 @@ jobs:
     branches:
       only:
         - dev
+    tags:
+      ignore: /*chore(release)*/
     docker:
       # specify the version you desire here
       - image: circleci/node:8.3
@@ -41,4 +43,4 @@ jobs:
 
       # run standard-version release process
       - run: npm run release
-      - run: git push --follow-tags origin dev [ci skip]
+      - run: git push --follow-tags origin dev

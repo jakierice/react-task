@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.82](https://github.com/jakierice/react-task/compare/v0.0.81...v0.0.82) (2019-09-15)
+
+
+### Bug Fixes
+
+* **cicd:** change ignore pattern to chore(release) for circle ([9e074e8](https://github.com/jakierice/react-task/commit/9e074e8))
+
+### [0.0.81](https://github.com/jakierice/react-task/compare/v0.0.80...v0.0.81) (2019-09-15)
+
+### [0.0.80](https://github.com/jakierice/react-task/compare/v0.0.79...v0.0.80) (2019-09-15)
+
+
+### Bug Fixes
+
+* **cicd:** LAST CONFIG ATTEMPT FOR SKIPPING VERSION COMMIT ([1463e78](https://github.com/jakierice/react-task/commit/1463e78))
+
+### [0.0.79](https://github.com/jakierice/react-task/compare/v0.0.78...v0.0.79) (2019-09-15)
+
+
+### Bug Fixes
+
+* **cicd:** add skip tag to release push in circle config ([076a01b](https://github.com/jakierice/react-task/commit/076a01b))
+* **cicd:** remove ci skip tag from push ([ec455d1](https://github.com/jakierice/react-task/commit/ec455d1))
+
+
+### Features
+
+* **cicd:** trying out a dev branch workflow ([69d1478](https://github.com/jakierice/react-task/commit/69d1478))
+
 ### [0.0.78](https://github.com/jakierice/react-task/compare/v0.0.77...v0.0.78) (2019-09-15)
 
 
