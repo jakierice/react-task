@@ -16,7 +16,7 @@ function Home() {
       });
     });
 
-    // the returned callback will be called by reacted
+    // the returned callback will be called by react when the component is unmounted
     return () => {
       socket.close();
     };
