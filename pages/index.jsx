@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { Fragment, useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 import {
   LineChart,
@@ -15,6 +15,7 @@ import Alert from '@reach/alert';
 import dayjs from 'dayjs';
 
 function Home() {
+  const [isSocketConnected, setIsSocketConnected] = useState(false);
   const [currentRandomNumber, setCurrentRandomNumber] = useState([
     {
       value: '0',
@@ -28,12 +29,9 @@ function Home() {
     75,
   );
 
-  function handleThresholdInputChange(event) {
-    const thresholdInputValue = event.target.value;
-  }
-
   useEffect(() => {
     socket.on('random-number', data => {
+      setIsSocketConnected(true);
       setCurrentRandomNumber(data);
       setRandomNumberList(prevList => {
         return prevList.concat({
@@ -49,17 +47,29 @@ function Home() {
     };
   }, []);
 
+  function closeSocketConnection() {
+    setIsSocketConnected(false);
+    socket.close();
+  }
+
+  function openSocketConnection() {
+    setIsSocketConnected(true);
+    socket.open();
+  }
+
   return (
-    <React.Fragment>
+    <Fragment>
       <header>
         <h1>Entropy Party</h1>
+        <small>
+          Connection to random number pipe is{' '}
+          {isSocketConnected ? 'open' : 'closed'}
+        </small>
       </header>
       <main>
         <section>
-          <h2>Random Numbers</h2>
-          <button onClick={() => socket.close()}>Close connection</button>
-          <button onClick={() => socket.open()}>Open connection</button>
-          <strong>{currentRandomNumber.value}</strong>
+          <button onClick={closeSocketConnection}>Close connection</button>
+          <button onClick={openSocketConnection}>Open connection</button>
           <input
             type="range"
             id="random-number-threshold-slider"
@@ -74,15 +84,16 @@ function Home() {
           <label htmlFor="random-number-threshold-slider">
             Random number alert threshold set to: {randomNumberAlertThreshold}
           </label>
+          <strong>Current random number: {currentRandomNumber.value}</strong>
           <LineChart
             data={randomNumberList}
             height={250}
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
             syncId="random-number-chart"
             width={730}
-          >
+          >j
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
+            <XAxis dataKey="timestamp" />
             <YAxis />
             <Tooltip />
             <Legend />
@@ -96,7 +107,7 @@ function Home() {
             width={730}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
+            <XAxis dataKey="timestamp" />
             <YAxis />
             <Tooltip />
             <Legend />
@@ -112,6 +123,7 @@ function Home() {
               ❗️ Woah! That's a high random number.
             </Alert>
           )}
+          <h2>Log</h2>
           <ul>
             {randomNumberList
               .slice(randomNumberList.length - 10, randomNumberList.length)
@@ -121,7 +133,7 @@ function Home() {
           </ul>
         </section>
       </main>
-    </React.Fragment>
+    </Fragment>
   );
 }
 
