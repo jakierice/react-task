@@ -60,7 +60,7 @@ function Home() {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Line type="monotone" dataKey="value" stroke="#8884d8" />
+            <Line type="monotone" dataKey="value" stroke="#FF5964" />
           </LineChart>
           {/* <ul>
             {numberList.map((number, index) => (
