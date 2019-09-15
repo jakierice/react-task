@@ -18,12 +18,12 @@ function Home() {
     value: 0,
     timestamp: Number(new Date()),
   });
-  const [numberList, setNumberList] = useState([]);
+  const [randomNumberList, setRandomNumberList] = useState([]);
   const { current: socket } = useRef(io());
   useEffect(() => {
     socket.on('random-number', data => {
       setCurrentRandomNumber(data);
-      setNumberList(prevList => {
+      setRandomNumberList(prevList => {
         return prevList.concat({
           name: dayjs(data.timestamp).format('YYYYMMDDTHH:mm:ss'),
           value: data.value,
@@ -51,7 +51,7 @@ function Home() {
           <LineChart
             width={730}
             height={250}
-            data={numberList}
+            data={randomNumberList}
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
             syncId="random-number-chart"
           >
@@ -62,11 +62,26 @@ function Home() {
             <Legend />
             <Line type="monotone" dataKey="value" stroke="#FF5964" />
           </LineChart>
-          {/* <ul>
-            {numberList.map((number, index) => (
-              <li key={String(number.timestamp + index)}>{number.value}</li>
-            ))}
-          </ul> */}
+          <BarChart
+            width={730}
+            height={250}
+            data={randomNumberList}
+            syncId="random-number-chart"
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="value" fill="#2892D7" />
+          </BarChart>
+          <ul>
+            {randomNumberList
+              .slice(randomNumberList.length - 11, randomNumberList.length - 1)
+              .map((number, index) => (
+                <li key={String(number.timestamp + index)}>{number.value}</li>
+              ))}
+          </ul>
         </section>
       </main>
     </React.Fragment>

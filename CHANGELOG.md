@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.83](https://github.com/jakierice/react-task/compare/v0.0.82...v0.0.83) (2019-09-15)
+
+
+### Features
+
+* **bar-chart:** adds syncId for chart interactions to match ([31c254e](https://github.com/jakierice/react-task/commit/31c254e))
+* add 10 max length list of numbers ([e8dee60](https://github.com/jakierice/react-task/commit/e8dee60))
+* **bar-chart:** add recharts bar chart boilerplate ([dd871e9](https://github.com/jakierice/react-task/commit/dd871e9))
+
 ### [0.0.82](https://github.com/jakierice/react-task/compare/v0.0.81...v0.0.82) (2019-09-15)
 
 
