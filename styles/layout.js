@@ -29,7 +29,7 @@ export const MainContentLayoutWrapper = styled.main`
   grid-template-rows: repeat(3, 1fr);
   grid-template-columns: repeat(3, 1fr);
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     grid-template-areas:
       'charts'
       'charts'
@@ -61,13 +61,13 @@ export const MetaInfoLayoutWrapper = styled.section`
 `;
 
 export const ShowOnDesktopOnly = styled.div`
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 768px) {
     display: none;
   }
 `;
 
 export const ShowOnMobileOnly = styled.div`
-  @media screen and (min-width: 425px) {
+  @media screen and (min-width: 768px) {
     display: none;
   }
 `;
