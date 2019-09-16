@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
+import { createGlobalStyle, ThemeProvider } from 'styled-components'
 import {
   ResponsiveContainer,
   LineChart,
@@ -14,6 +15,25 @@ import {
 } from 'recharts';
 import Alert from '@reach/alert';
 import dayjs from 'dayjs';
+
+import {
+  PageLayoutWrapper,
+  HeaderLayoutWrapper,
+  MainContentLayoutWrapper,
+  ChartsLayoutWrapper,
+  ControlsLayoutWrapper,
+  MetaInfoLayoutWrapper,
+} from '../styles/layout';
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+`
 
 function Home() {
   const [isSocketConnected, setIsSocketConnected] = useState(false);
@@ -59,16 +79,17 @@ function Home() {
   }
 
   return (
-    <Fragment>
-      <header>
+    <PageLayoutWrapper>
+      <GlobalStyle />
+      <HeaderLayoutWrapper>
         <h1>Entropy Party</h1>
         <small>
           Connection to random number pipe is{' '}
           {isSocketConnected ? 'open' : 'closed'}
         </small>
-      </header>
-      <main>
-        <section>
+      </HeaderLayoutWrapper>
+      <MainContentLayoutWrapper>
+        <ControlsLayoutWrapper>
           <button onClick={closeSocketConnection}>Close connection</button>
           <button onClick={openSocketConnection}>Open connection</button>
           <input
@@ -85,7 +106,8 @@ function Home() {
           <label htmlFor="random-number-threshold-slider">
             Random number alert threshold set to: {randomNumberAlertThreshold}
           </label>
-          <strong>Current random number: {currentRandomNumber.value}</strong>
+        </ControlsLayoutWrapper>
+        <ChartsLayoutWrapper>
           <ResponsiveContainer width="100%" height={300}>
             <LineChart
               data={randomNumberList}
@@ -114,27 +136,29 @@ function Home() {
               <Bar dataKey="value" fill="#2892D7" />
             </BarChart>
           </ResponsiveContainer>
-          {parseInt(currentRandomNumber.value) > randomNumberAlertThreshold && (
-            <Alert
-              style={{
-                background: 'hsla(10, 50%, 50%, .10)',
-                padding: '10px',
-              }}
-            >
-              ❗️ Woah! That's a high random number.
-            </Alert>
-          )}
+        </ChartsLayoutWrapper>
+        {parseInt(currentRandomNumber.value) > randomNumberAlertThreshold && (
+          <Alert
+            style={{
+              background: 'hsla(10, 50%, 50%, .10)',
+            }}
+          >
+            ❗️ Woah! That's a high random number.
+          </Alert>
+        )}
+        <MetaInfoLayoutWrapper>
+          <strong>Current random number: {currentRandomNumber.value}</strong>
           <h2>Log</h2>
           <ul>
             {randomNumberList
               .slice(randomNumberList.length - 10, randomNumberList.length)
               .map((number, index) => (
-                <li key={number.timestamp}>{number.value}</li>
+                <li key={number.timestamp + index}>{number.value}</li>
               ))}
           </ul>
-        </section>
-      </main>
-    </Fragment>
+        </MetaInfoLayoutWrapper>
+      </MainContentLayoutWrapper>
+    </PageLayoutWrapper>
   );
 }
 
