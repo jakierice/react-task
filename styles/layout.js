@@ -28,6 +28,15 @@ export const MainContentLayoutWrapper = styled.main`
     'charts charts meta';
   grid-template-rows: repeat(3, 1fr);
   grid-template-columns: repeat(3, 1fr);
+
+  @media screen and (max-width: 425px) {
+    grid-template-areas:
+      'charts'
+      'charts'
+      'meta';
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: 1fr;
+  }
 `;
 
 export const ChartsLayoutWrapper = styled.section`
@@ -49,4 +58,16 @@ export const MetaInfoLayoutWrapper = styled.section`
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
+`;
+
+export const ShowOnDesktopOnly = styled.div`
+  @media screen and (max-width: 425px) {
+    display: none;
+  }
+`;
+
+export const ShowOnMobileOnly = styled.div`
+  @media screen and (min-width: 425px) {
+    display: none;
+  }
 `;
