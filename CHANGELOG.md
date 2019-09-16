@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/jakierice/react-task/compare/v0.1.1...v0.1.2) (2019-09-16)
+
+
+### Features
+
+* **layout:** add recharts responsive chart containers ([7435be6](https://github.com/jakierice/react-task/commit/7435be6))
+* **layout:** adds layout styles file for styled-components layout Components ([878088f](https://github.com/jakierice/react-task/commit/878088f))
+* **layout:** install styled-components library ([1b58efd](https://github.com/jakierice/react-task/commit/1b58efd))
+* **layout:** refactor Home page component for layout ([0ff3b2c](https://github.com/jakierice/react-task/commit/0ff3b2c))
+
 ### [0.1.1](https://github.com/jakierice/react-task/compare/v0.1.0...v0.1.1) (2019-09-15)
 
 
