@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
-import { createGlobalStyle, ThemeProvider } from 'styled-components'
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import {
   ResponsiveContainer,
   LineChart,
@@ -23,6 +23,8 @@ import {
   ChartsLayoutWrapper,
   ControlsLayoutWrapper,
   MetaInfoLayoutWrapper,
+  ShowOnMobileOnly,
+  ShowOnDesktopOnly,
 } from '../styles/layout';
 
 const GlobalStyle = createGlobalStyle`
@@ -33,7 +35,13 @@ const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
-`
+
+  @media screen and (max-width: 425px) {
+    body {
+      padding: 0;
+    }
+  }
+`;
 
 function Home() {
   const [isSocketConnected, setIsSocketConnected] = useState(false);
@@ -90,22 +98,24 @@ function Home() {
       </HeaderLayoutWrapper>
       <MainContentLayoutWrapper>
         <ControlsLayoutWrapper>
-          <button onClick={closeSocketConnection}>Close connection</button>
-          <button onClick={openSocketConnection}>Open connection</button>
-          <input
-            type="range"
-            id="random-number-threshold-slider"
-            name="random-number-threshold-slider"
-            min="0"
-            max="100"
-            value={randomNumberAlertThreshold}
-            onChange={event =>
-              setRandomNumberAlertThreshold(event.target.value)
-            }
-          />
-          <label htmlFor="random-number-threshold-slider">
-            Random number alert threshold set to: {randomNumberAlertThreshold}
-          </label>
+          <ShowOnDesktopOnly>
+            <button onClick={closeSocketConnection}>Close connection</button>
+            <button onClick={openSocketConnection}>Open connection</button>
+            <input
+              type="range"
+              id="random-number-threshold-slider"
+              name="random-number-threshold-slider"
+              min="0"
+              max="100"
+              value={randomNumberAlertThreshold}
+              onChange={event =>
+                setRandomNumberAlertThreshold(event.target.value)
+              }
+            />
+            <label htmlFor="random-number-threshold-slider">
+              Random number alert threshold set to: {randomNumberAlertThreshold}
+            </label>
+          </ShowOnDesktopOnly>
         </ControlsLayoutWrapper>
         <ChartsLayoutWrapper>
           <ResponsiveContainer width="100%" height={300}>
