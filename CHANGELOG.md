@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.3](https://github.com/jakierice/react-task/compare/v0.1.2...v0.1.3) (2019-09-16)
+
+
+### Features
+
+* **mobile-respnsiveness:** hides controls on mobile ([ec03aa8](https://github.com/jakierice/react-task/commit/ec03aa8))
+* **mobile-responsiveness:** add css module resolve config to next ([5a2d6f8](https://github.com/jakierice/react-task/commit/5a2d6f8))
+* **mobile-responsiveness:** add document for custom HTML document ([e095941](https://github.com/jakierice/react-task/commit/e095941))
+* **mobile-responsiveness:** adds media queries for mobile grid adjust ([613e1ae](https://github.com/jakierice/react-task/commit/613e1ae))
+* **mobile-responsiveness:** adds resize observer hook for ssr dyanimc sizing of charts ([1037e38](https://github.com/jakierice/react-task/commit/1037e38))
+* **mobile-responsiveness:** finalize mobile and desktop layout ([18e1086](https://github.com/jakierice/react-task/commit/18e1086))
+* **mobile-responsiveness:** install reach dialoag for controls modal overlay ([f5b4cd1](https://github.com/jakierice/react-task/commit/f5b4cd1))
+
 ### [0.1.2](https://github.com/jakierice/react-task/compare/v0.1.1...v0.1.2) (2019-09-16)
 
 
