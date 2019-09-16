@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
-import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 import useResizeObserver from 'use-resize-observer';
 import {
   LineChart,
@@ -13,7 +13,6 @@ import {
   BarChart,
   Bar,
 } from 'recharts';
-import Alert from '@reach/alert';
 import dayjs from 'dayjs';
 
 import {
@@ -26,7 +25,8 @@ import {
   ShowOnMobileOnly,
   ShowOnDesktopOnly,
 } from '../styles/layout';
-import { FullScreenModal } from '../styles/ui-elements';
+import { FullScreenModal } from '../components/FullScreenModal';
+import { ToastList } from '../components/Toast';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -58,26 +58,39 @@ function Home() {
   const [randomNumberAlertThreshold, setRandomNumberAlertThreshold] = useState(
     75,
   );
-
+  const toastListRef = useRef(null);
+  // const [thresholdAlerts, setThresholdAlerts] = useState([]);
   const [isControlModalOpen, setIsControlModalOpen] = useState(false);
 
   useEffect(() => {
     socket.on('random-number', data => {
       setIsSocketConnected(true);
-      setCurrentRandomNumber(data);
       setRandomNumberList(prevList => {
+        setCurrentRandomNumber(data);
         return prevList.concat({
           timestamp: dayjs(data.timestamp).format('YYMMDDTHH:mm:ss'),
           value: String(data.value),
         });
       });
     });
-
     // the returned callback will be called by react when the component is unmounted
     return () => {
       socket.close();
     };
   }, []);
+
+  useEffect(() => {
+    if (
+      parseInt(currentRandomNumber.value) > parseInt(randomNumberAlertThreshold)
+    ) {
+      toastListRef.current(
+        `Random number is ${currentRandomNumber.value -
+          parseInt(
+            randomNumberAlertThreshold,
+          )} higher than threshold provided by user.`,
+      );
+    }
+  }, [currentRandomNumber, toastListRef, randomNumberAlertThreshold]);
 
   const [chartsLayoutWrapperRef, chartsLayoutWrapperWidth] = useResizeObserver({
     defaultWidth: 635,
@@ -185,15 +198,7 @@ function Home() {
           </BarChart>
         </ChartsLayoutWrapper>
         <MetaInfoLayoutWrapper>
-          {parseInt(currentRandomNumber.value) > randomNumberAlertThreshold && (
-            <Alert
-              style={{
-                background: 'hsla(10, 50%, 50%, .10)',
-              }}
-            >
-              ❗️ Woah! That's a high random number.
-            </Alert>
-          )}
+          <ToastList>{add => (toastListRef.current = add)}</ToastList>
           <strong>Current random number: {currentRandomNumber.value}</strong>
           <h2>Log</h2>
           <ul>
