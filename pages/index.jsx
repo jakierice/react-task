@@ -1,6 +1,8 @@
 import React, { Fragment, useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
+import { createGlobalStyle, ThemeProvider } from 'styled-components'
 import {
+  ResponsiveContainer,
   LineChart,
   Line,
   XAxis,
@@ -13,6 +15,25 @@ import {
 } from 'recharts';
 import Alert from '@reach/alert';
 import dayjs from 'dayjs';
+
+import {
+  PageLayoutWrapper,
+  HeaderLayoutWrapper,
+  MainContentLayoutWrapper,
+  ChartsLayoutWrapper,
+  ControlsLayoutWrapper,
+  MetaInfoLayoutWrapper,
+} from '../styles/layout';
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    margin: 0;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+`
 
 function Home() {
   const [isSocketConnected, setIsSocketConnected] = useState(false);
@@ -35,7 +56,7 @@ function Home() {
       setCurrentRandomNumber(data);
       setRandomNumberList(prevList => {
         return prevList.concat({
-          timestamp: dayjs(data.timestamp).format('YYYYMMDDTHH:mm:ss'),
+          timestamp: dayjs(data.timestamp).format('YYMMDDTHH:mm:ss'),
           value: String(data.value),
         });
       });
@@ -58,16 +79,17 @@ function Home() {
   }
 
   return (
-    <Fragment>
-      <header>
+    <PageLayoutWrapper>
+      <GlobalStyle />
+      <HeaderLayoutWrapper>
         <h1>Entropy Party</h1>
         <small>
           Connection to random number pipe is{' '}
           {isSocketConnected ? 'open' : 'closed'}
         </small>
-      </header>
-      <main>
-        <section>
+      </HeaderLayoutWrapper>
+      <MainContentLayoutWrapper>
+        <ControlsLayoutWrapper>
           <button onClick={closeSocketConnection}>Close connection</button>
           <button onClick={openSocketConnection}>Open connection</button>
           <input
@@ -84,56 +106,59 @@ function Home() {
           <label htmlFor="random-number-threshold-slider">
             Random number alert threshold set to: {randomNumberAlertThreshold}
           </label>
-          <strong>Current random number: {currentRandomNumber.value}</strong>
-          <LineChart
-            data={randomNumberList}
-            height={250}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-            syncId="random-number-chart"
-            width={730}
-          >j
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="timestamp" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Line type="monotone" dataKey="value" stroke="#FF5964" />
-          </LineChart>
-          <BarChart
-            data={randomNumberList}
-            height={250}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-            syncId="random-number-chart"
-            width={730}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="timestamp" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="value" fill="#2892D7" />
-          </BarChart>
-          {parseInt(currentRandomNumber.value) > randomNumberAlertThreshold && (
-            <Alert
-              style={{
-                background: 'hsla(10, 50%, 50%, .10)',
-                padding: '10px',
-              }}
+        </ControlsLayoutWrapper>
+        <ChartsLayoutWrapper>
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart
+              data={randomNumberList}
+              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+              syncId="random-number-chart"
             >
-              ❗️ Woah! That's a high random number.
-            </Alert>
-          )}
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="timestamp" />
+              <YAxis domain={[-100, 100]} />
+              <Tooltip />
+              <Legend />
+              <Line type="monotone" dataKey="value" stroke="#FF5964" />
+            </LineChart>
+          </ResponsiveContainer>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart
+              data={randomNumberList}
+              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+              syncId="random-number-chart"
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="timestamp" />
+              <YAxis domain={[-100, 100]} />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="value" fill="#2892D7" />
+            </BarChart>
+          </ResponsiveContainer>
+        </ChartsLayoutWrapper>
+        {parseInt(currentRandomNumber.value) > randomNumberAlertThreshold && (
+          <Alert
+            style={{
+              background: 'hsla(10, 50%, 50%, .10)',
+            }}
+          >
+            ❗️ Woah! That's a high random number.
+          </Alert>
+        )}
+        <MetaInfoLayoutWrapper>
+          <strong>Current random number: {currentRandomNumber.value}</strong>
           <h2>Log</h2>
           <ul>
             {randomNumberList
               .slice(randomNumberList.length - 10, randomNumberList.length)
               .map((number, index) => (
-                <li key={number.timestamp}>{number.value}</li>
+                <li key={number.timestamp + index}>{number.value}</li>
               ))}
           </ul>
-        </section>
-      </main>
-    </Fragment>
+        </MetaInfoLayoutWrapper>
+      </MainContentLayoutWrapper>
+    </PageLayoutWrapper>
   );
 }
 
