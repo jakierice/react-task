@@ -1,4 +1,5 @@
-module.exports = {
+const withCSS = require('@zeit/next-css');
+module.exports = withCSS({
   webpack: (config, { isServer }) => {
     // Fixes npm packages that depend on `fs` module
     if (!isServer) {
@@ -9,4 +10,4 @@ module.exports = {
 
     return config;
   },
-};
+});

@@ -1,8 +1,8 @@
-import React, { Fragment, useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
-import { createGlobalStyle, ThemeProvider } from 'styled-components'
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import useResizeObserver from 'use-resize-observer';
 import {
-  ResponsiveContainer,
   LineChart,
   Line,
   XAxis,
@@ -23,7 +23,10 @@ import {
   ChartsLayoutWrapper,
   ControlsLayoutWrapper,
   MetaInfoLayoutWrapper,
+  ShowOnMobileOnly,
+  ShowOnDesktopOnly,
 } from '../styles/layout';
+import { FullScreenModal } from '../styles/ui-elements';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -33,7 +36,13 @@ const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
-`
+
+  @media screen and (max-width: 425px) {
+    body {
+      padding: 0;
+    }
+  }
+`;
 
 function Home() {
   const [isSocketConnected, setIsSocketConnected] = useState(false);
@@ -49,6 +58,8 @@ function Home() {
   const [randomNumberAlertThreshold, setRandomNumberAlertThreshold] = useState(
     75,
   );
+
+  const [isControlModalOpen, setIsControlModalOpen] = useState(false);
 
   useEffect(() => {
     socket.on('random-number', data => {
@@ -67,6 +78,10 @@ function Home() {
       socket.close();
     };
   }, []);
+
+  const [chartsLayoutWrapperRef, chartsLayoutWrapperWidth] = useResizeObserver({
+    defaultWidth: 635,
+  });
 
   function closeSocketConnection() {
     setIsSocketConnected(false);
@@ -87,66 +102,98 @@ function Home() {
           Connection to random number pipe is{' '}
           {isSocketConnected ? 'open' : 'closed'}
         </small>
+        <button type="button" onClick={() => setIsControlModalOpen(true)}>
+          Open chart controls
+        </button>
       </HeaderLayoutWrapper>
       <MainContentLayoutWrapper>
         <ControlsLayoutWrapper>
-          <button onClick={closeSocketConnection}>Close connection</button>
-          <button onClick={openSocketConnection}>Open connection</button>
-          <input
-            type="range"
-            id="random-number-threshold-slider"
-            name="random-number-threshold-slider"
-            min="0"
-            max="100"
-            value={randomNumberAlertThreshold}
-            onChange={event =>
-              setRandomNumberAlertThreshold(event.target.value)
-            }
-          />
-          <label htmlFor="random-number-threshold-slider">
-            Random number alert threshold set to: {randomNumberAlertThreshold}
-          </label>
+          <ShowOnDesktopOnly>
+            <button onClick={closeSocketConnection}>Close connection</button>
+            <button onClick={openSocketConnection}>Open connection</button>
+            <input
+              type="range"
+              id="random-number-threshold-slider"
+              name="random-number-threshold-slider"
+              min="0"
+              max="100"
+              value={randomNumberAlertThreshold}
+              onChange={event =>
+                setRandomNumberAlertThreshold(event.target.value)
+              }
+            />
+            <label htmlFor="random-number-threshold-slider">
+              Random number alert threshold set to: {randomNumberAlertThreshold}
+            </label>
+          </ShowOnDesktopOnly>
+          <ShowOnMobileOnly>
+            <FullScreenModal isOpen={isControlModalOpen}>
+              <button onClick={closeSocketConnection}>Close connection</button>
+              <button onClick={openSocketConnection}>Open connection</button>
+              <input
+                type="range"
+                id="random-number-threshold-slider"
+                name="random-number-threshold-slider"
+                min="0"
+                max="100"
+                value={randomNumberAlertThreshold}
+                onChange={event =>
+                  setRandomNumberAlertThreshold(event.target.value)
+                }
+              />
+              <label htmlFor="random-number-threshold-slider">
+                Random number alert threshold set to:{' '}
+                {randomNumberAlertThreshold}
+              </label>
+              <button
+                type="button"
+                onClick={() => setIsControlModalOpen(false)}
+              >
+                Close chart controls
+              </button>
+            </FullScreenModal>
+          </ShowOnMobileOnly>
         </ControlsLayoutWrapper>
-        <ChartsLayoutWrapper>
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart
-              data={randomNumberList}
-              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-              syncId="random-number-chart"
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="timestamp" />
-              <YAxis domain={[-100, 100]} />
-              <Tooltip />
-              <Legend />
-              <Line type="monotone" dataKey="value" stroke="#FF5964" />
-            </LineChart>
-          </ResponsiveContainer>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart
-              data={randomNumberList}
-              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-              syncId="random-number-chart"
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="timestamp" />
-              <YAxis domain={[-100, 100]} />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="value" fill="#2892D7" />
-            </BarChart>
-          </ResponsiveContainer>
-        </ChartsLayoutWrapper>
-        {parseInt(currentRandomNumber.value) > randomNumberAlertThreshold && (
-          <Alert
-            style={{
-              background: 'hsla(10, 50%, 50%, .10)',
-            }}
+        <ChartsLayoutWrapper ref={chartsLayoutWrapperRef}>
+          <LineChart
+            height={300}
+            width={chartsLayoutWrapperWidth - 30}
+            data={randomNumberList}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+            syncId="random-number-chart"
           >
-            ❗️ Woah! That's a high random number.
-          </Alert>
-        )}
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="timestamp" />
+            <YAxis domain={[-100, 100]} />
+            <Tooltip />
+            <Legend />
+            <Line type="monotone" dataKey="value" stroke="#FF5964" />
+          </LineChart>
+          <BarChart
+            height={300}
+            width={chartsLayoutWrapperWidth - 30}
+            data={randomNumberList}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+            syncId="random-number-chart"
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="timestamp" />
+            <YAxis domain={[-100, 100]} />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="value" fill="#2892D7" />
+          </BarChart>
+        </ChartsLayoutWrapper>
         <MetaInfoLayoutWrapper>
+          {parseInt(currentRandomNumber.value) > randomNumberAlertThreshold && (
+            <Alert
+              style={{
+                background: 'hsla(10, 50%, 50%, .10)',
+              }}
+            >
+              ❗️ Woah! That's a high random number.
+            </Alert>
+          )}
           <strong>Current random number: {currentRandomNumber.value}</strong>
           <h2>Log</h2>
           <ul>
