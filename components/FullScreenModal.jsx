@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Dialog } from '@reach/dialog';
+import {  Dialog } from '@reach/dialog';
 import '@reach/dialog/styles.css';
 
 export const FullScreenModal = styled(Dialog)`
