@@ -9,7 +9,7 @@ export const Button = styled.button`
   color: ${({ theme, disabled }) => (disabled ? theme.lightGray : theme.blue)};
   margin: 0 0.2rem 0.2rem 0;
   transition: border-color 0.3s ease, color 0.3s ease;
-  cursor: pointer;
+  cursor: ${props => props.disabled ? 'default' : 'pointer'};
 
   &:hover, &:focus {
     outline: none;
