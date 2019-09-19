@@ -40,7 +40,7 @@ export const Content = styled.div`
   color: ${({ theme }) => theme.white};;
   background: ${({ theme }) => theme.gray};;
   opacity: 0.9;
-  padding: 1.2rem 18rem;
+  padding: 1.2rem 1.8rem;
   font-size: 1rem;
   display: grid;
   grid-template-columns: ${props =>
@@ -76,7 +76,7 @@ export const Life = styled(animated.div)`
   bottom: ${props => (props.top ? '10px' : '0')};
   left: 0px;
   width: auto;
-  background-image: linear-gradient(130deg, #00b4e6, #00f0e0);
+  background-image: ${({ theme }) => `linear-gradient(130deg, ${theme.pink}, ${theme.red})`};
   height: 5px;
 `;
 
