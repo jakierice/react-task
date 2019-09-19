@@ -29,7 +29,14 @@ import { FullScreenModal } from '../components/FullScreenModal';
 import { ToastList } from '../components/Toast';
 import { Button } from '../components/Button';
 import theme from '../styles/theme';
-import { PageTitle, SectionTitle, StrongText, SmallText } from '../components/Typography';
+import {
+  PageTitle,
+  SectionTitle,
+  StrongText,
+  SmallText,
+  CapitalText,
+} from '../components/typography';
+import { FormLabel, RangeSlider, FormRowWrapper } from '../components/Form';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -136,8 +143,8 @@ function Home() {
         <HeaderLayoutWrapper>
           <PageTitle>Entropy Party</PageTitle>
           <SmallText>
-            Connection to random number pipe is{' '}
-            {isSocketConnected ? 'open' : 'closed'}
+            Connection status:{' '}
+            <CapitalText>{isSocketConnected ? 'open' : 'closed'}</CapitalText>
           </SmallText>
           <ShowOnMobileOnly>
             <Button type="button" onClick={() => setIsControlModalOpen(true)}>
@@ -148,26 +155,35 @@ function Home() {
         <MainContentLayoutWrapper>
           <ControlsLayoutWrapper>
             <ShowOnDesktopOnly>
-              <Button onClick={closeSocketConnection} disabled={!isSocketConnected}>Close connection</Button>
-              <Button onClick={openSocketConnection} disabled={isSocketConnected}>Open connection</Button>
-              <br></br>
-              <label htmlFor="snapshot-size-slider">
-                Random number snapshot size: {snapshotSize}
-                <input
-                  type="range"
-                  id="snapshot-size-slider"
-                  name="snapshot-size-slider"
-                  min="0"
-                  max="30"
-                  value={snapshotSize}
-                  onChange={event => setSnapshotSize(event.target.value)}
-                />
-              </label>
-              <br></br>
-              <label htmlFor="random-number-threshold-slider">
-                Random number alert threshold set to:{' '}
-                {randomNumberAlertThreshold}
-                <input
+              <Button
+                onClick={closeSocketConnection}
+                disabled={!isSocketConnected}
+              >
+                Close connection
+              </Button>
+              <Button
+                onClick={openSocketConnection}
+                disabled={isSocketConnected}
+              >
+                Open connection
+              </Button>
+              <FormRowWrapper>
+                <FormLabel htmlFor="snapshot-size-slider">
+                  Snapshot size: {snapshotSize}
+                  <RangeSlider
+                    type="range"
+                    id="snapshot-size-slider"
+                    name="snapshot-size-slider"
+                    min="0"
+                    max="30"
+                    value={snapshotSize}
+                    onChange={event => setSnapshotSize(event.target.value)}
+                  />
+                </FormLabel>
+              </FormRowWrapper>
+              <FormLabel htmlFor="random-number-threshold-slider">
+                Alert threshold: {randomNumberAlertThreshold}
+                <RangeSlider
                   type="range"
                   id="random-number-threshold-slider"
                   name="random-number-threshold-slider"
@@ -178,7 +194,7 @@ function Home() {
                     setRandomNumberAlertThreshold(event.target.value)
                   }
                 />
-              </label>
+              </FormLabel>
             </ShowOnDesktopOnly>
             <ShowOnMobileOnly>
               <FullScreenModal isOpen={isControlModalOpen}>
@@ -186,7 +202,7 @@ function Home() {
                   Close connection
                 </Button>
                 <Button onClick={openSocketConnection}>Open connection</Button>
-                <input
+                <RangeSlider
                   type="range"
                   id="random-number-threshold-slider"
                   name="random-number-threshold-slider"
@@ -197,10 +213,10 @@ function Home() {
                     setRandomNumberAlertThreshold(event.target.value)
                   }
                 />
-                <label htmlFor="random-number-threshold-slider">
+                <FormLabel htmlFor="random-number-threshold-slider">
                   Random number alert threshold set to:{' '}
                   {randomNumberAlertThreshold}
-                </label>
+                </FormLabel>
                 <Button
                   type="button"
                   onClick={() => setIsControlModalOpen(false)}
@@ -222,7 +238,7 @@ function Home() {
               <XAxis dataKey="timestamp" />
               <YAxis domain={[-100, 100]} />
               <Tooltip />
-              <Legend />
+              <Legend wrapperStyle={{ color: '#FF5964' }} />
               <Line type="monotone" dataKey="value" stroke="#FF5964" />
             </LineChart>
             <BarChart
@@ -236,7 +252,7 @@ function Home() {
               <XAxis dataKey="timestamp" />
               <YAxis domain={[-100, 100]} />
               <Tooltip />
-              <Legend />
+              <Legend wrapperStyle={{ color: '#2892D7' }} />
               <Bar dataKey="value" fill="#2892D7" />
             </BarChart>
           </ChartsLayoutWrapper>
@@ -246,11 +262,7 @@ function Home() {
               Current random number:{' '}
               {randomNumberData.currentRandomNumber.value}
             </StrongText>
-            <SectionTitle>Log</SectionTitle>
-            <StrongText>
-              Total random number count:{' '}
-              {randomNumberData.randomNumberList.length}
-            </StrongText>
+            <SectionTitle>Log ({snapshot.length} items)</SectionTitle>
             <ul>
               {snapshot
                 .map((number, index) => (
