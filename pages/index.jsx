@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import useResizeObserver from 'use-resize-observer';
 import {
   LineChart,
@@ -27,10 +27,15 @@ import {
 } from '../styles/layout';
 import { FullScreenModal } from '../components/FullScreenModal';
 import { ToastList } from '../components/Toast';
+import { Button } from '../components/Button';
+import theme from '../styles/theme';
+import { PageTitle, SectionTitle, StrongText, SmallText } from '../components/Typography';
 
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
+    background-color: ${({ theme }) => theme.darkGray};
+    font-family: Arial, Helvetica, sans-serif;
   }
 
   * {
@@ -125,132 +130,138 @@ function Home() {
   );
 
   return (
-    <PageLayoutWrapper>
-      <GlobalStyle />
-      <HeaderLayoutWrapper>
-        <h1>Entropy Party</h1>
-        <small>
-          Connection to random number pipe is{' '}
-          {isSocketConnected ? 'open' : 'closed'}
-        </small>
-        <ShowOnMobileOnly>
-          <button type="button" onClick={() => setIsControlModalOpen(true)}>
-            Open chart controls
-          </button>
-        </ShowOnMobileOnly>
-      </HeaderLayoutWrapper>
-      <MainContentLayoutWrapper>
-        <ControlsLayoutWrapper>
-          <ShowOnDesktopOnly>
-            <button onClick={closeSocketConnection}>Close connection</button>
-            <br></br>
-            <button onClick={openSocketConnection}>Open connection</button>
-            <br></br>
-            <label htmlFor="snapshot-size-slider">
-              Random number snapshot size: {snapshotSize}
-              <input
-                type="range"
-                id="snapshot-size-slider"
-                name="snapshot-size-slider"
-                min="0"
-                max="30"
-                value={snapshotSize}
-                onChange={event => setSnapshotSize(event.target.value)}
-              />
-            </label>
-            <br></br>
-            <label htmlFor="random-number-threshold-slider">
-              Random number alert threshold set to: {randomNumberAlertThreshold}
-              <input
-                type="range"
-                id="random-number-threshold-slider"
-                name="random-number-threshold-slider"
-                min="0"
-                max="100"
-                value={randomNumberAlertThreshold}
-                onChange={event =>
-                  setRandomNumberAlertThreshold(event.target.value)
-                }
-              />
-            </label>
-          </ShowOnDesktopOnly>
+    <ThemeProvider theme={theme}>
+      <PageLayoutWrapper>
+        <GlobalStyle />
+        <HeaderLayoutWrapper>
+          <PageTitle>Entropy Party</PageTitle>
+          <SmallText>
+            Connection to random number pipe is{' '}
+            {isSocketConnected ? 'open' : 'closed'}
+          </SmallText>
           <ShowOnMobileOnly>
-            <FullScreenModal isOpen={isControlModalOpen}>
-              <button onClick={closeSocketConnection}>Close connection</button>
-              <button onClick={openSocketConnection}>Open connection</button>
-              <input
-                type="range"
-                id="random-number-threshold-slider"
-                name="random-number-threshold-slider"
-                min="0"
-                max="100"
-                value={randomNumberAlertThreshold}
-                onChange={event =>
-                  setRandomNumberAlertThreshold(event.target.value)
-                }
-              />
+            <Button type="button" onClick={() => setIsControlModalOpen(true)}>
+              Open chart controls
+            </Button>
+          </ShowOnMobileOnly>
+        </HeaderLayoutWrapper>
+        <MainContentLayoutWrapper>
+          <ControlsLayoutWrapper>
+            <ShowOnDesktopOnly>
+              <Button onClick={closeSocketConnection} disabled={!isSocketConnected}>Close connection</Button>
+              <Button onClick={openSocketConnection} disabled={isSocketConnected}>Open connection</Button>
+              <br></br>
+              <label htmlFor="snapshot-size-slider">
+                Random number snapshot size: {snapshotSize}
+                <input
+                  type="range"
+                  id="snapshot-size-slider"
+                  name="snapshot-size-slider"
+                  min="0"
+                  max="30"
+                  value={snapshotSize}
+                  onChange={event => setSnapshotSize(event.target.value)}
+                />
+              </label>
+              <br></br>
               <label htmlFor="random-number-threshold-slider">
                 Random number alert threshold set to:{' '}
                 {randomNumberAlertThreshold}
+                <input
+                  type="range"
+                  id="random-number-threshold-slider"
+                  name="random-number-threshold-slider"
+                  min="0"
+                  max="100"
+                  value={randomNumberAlertThreshold}
+                  onChange={event =>
+                    setRandomNumberAlertThreshold(event.target.value)
+                  }
+                />
               </label>
-              <button
-                type="button"
-                onClick={() => setIsControlModalOpen(false)}
-              >
-                Close chart controls
-              </button>
-            </FullScreenModal>
-          </ShowOnMobileOnly>
-        </ControlsLayoutWrapper>
-        <ChartsLayoutWrapper ref={chartsLayoutWrapperRef}>
-          <LineChart
-            height={300}
-            width={chartsLayoutWrapperWidth - 30}
-            data={snapshot}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-            syncId="random-number-chart"
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="timestamp" />
-            <YAxis domain={[-100, 100]} />
-            <Tooltip />
-            <Legend />
-            <Line type="monotone" dataKey="value" stroke="#FF5964" />
-          </LineChart>
-          <BarChart
-            height={300}
-            width={chartsLayoutWrapperWidth - 30}
-            data={snapshot}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-            syncId="random-number-chart"
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="timestamp" />
-            <YAxis domain={[-100, 100]} />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="value" fill="#2892D7" />
-          </BarChart>
-        </ChartsLayoutWrapper>
-        <MetaInfoLayoutWrapper>
-          <ToastList>{add => (toastListRef.current = add)}</ToastList>
-          <strong>
-            Current random number: {randomNumberData.currentRandomNumber.value}
-          </strong>
-          <h2>Log</h2>
-          <strong>
-            Total random number count: {randomNumberData.randomNumberList.length}
-          </strong>
-          <ul>
-            {snapshot
-              .map((number, index) => (
-                <li key={number.timestamp + index}>{number.value}</li>
-              ))
-              .reverse()}
-          </ul>
-        </MetaInfoLayoutWrapper>
-      </MainContentLayoutWrapper>
-    </PageLayoutWrapper>
+            </ShowOnDesktopOnly>
+            <ShowOnMobileOnly>
+              <FullScreenModal isOpen={isControlModalOpen}>
+                <Button onClick={closeSocketConnection}>
+                  Close connection
+                </Button>
+                <Button onClick={openSocketConnection}>Open connection</Button>
+                <input
+                  type="range"
+                  id="random-number-threshold-slider"
+                  name="random-number-threshold-slider"
+                  min="0"
+                  max="100"
+                  value={randomNumberAlertThreshold}
+                  onChange={event =>
+                    setRandomNumberAlertThreshold(event.target.value)
+                  }
+                />
+                <label htmlFor="random-number-threshold-slider">
+                  Random number alert threshold set to:{' '}
+                  {randomNumberAlertThreshold}
+                </label>
+                <Button
+                  type="button"
+                  onClick={() => setIsControlModalOpen(false)}
+                >
+                  Close chart controls
+                </Button>
+              </FullScreenModal>
+            </ShowOnMobileOnly>
+          </ControlsLayoutWrapper>
+          <ChartsLayoutWrapper ref={chartsLayoutWrapperRef}>
+            <LineChart
+              height={300}
+              width={chartsLayoutWrapperWidth - 16}
+              data={snapshot}
+              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+              syncId="random-number-chart"
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="timestamp" />
+              <YAxis domain={[-100, 100]} />
+              <Tooltip />
+              <Legend />
+              <Line type="monotone" dataKey="value" stroke="#FF5964" />
+            </LineChart>
+            <BarChart
+              height={300}
+              width={chartsLayoutWrapperWidth - 16}
+              data={snapshot}
+              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+              syncId="random-number-chart"
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="timestamp" />
+              <YAxis domain={[-100, 100]} />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="value" fill="#2892D7" />
+            </BarChart>
+          </ChartsLayoutWrapper>
+          <MetaInfoLayoutWrapper>
+            <ToastList>{add => (toastListRef.current = add)}</ToastList>
+            <StrongText>
+              Current random number:{' '}
+              {randomNumberData.currentRandomNumber.value}
+            </StrongText>
+            <SectionTitle>Log</SectionTitle>
+            <StrongText>
+              Total random number count:{' '}
+              {randomNumberData.randomNumberList.length}
+            </StrongText>
+            <ul>
+              {snapshot
+                .map((number, index) => (
+                  <li key={number.timestamp + index}>{number.value}</li>
+                ))
+                .reverse()}
+            </ul>
+          </MetaInfoLayoutWrapper>
+        </MainContentLayoutWrapper>
+      </PageLayoutWrapper>
+    </ThemeProvider>
   );
 }
 
