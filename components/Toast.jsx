@@ -37,11 +37,11 @@ export const ToastMessageWrapper = styled(Alert)`
 const AnimatedToastWrapper = animated(ToastMessageWrapper);
 
 export const Content = styled.div`
-  color: white;
-  background: #445159;
+  color: ${({ theme }) => theme.white};;
+  background: ${({ theme }) => theme.gray};;
   opacity: 0.9;
-  padding: 12px 22px;
-  font-size: 1em;
+  padding: 1.2rem 18rem;
+  font-size: 1rem;
   display: grid;
   grid-template-columns: ${props =>
     props.canClose === false ? '1fr' : '1fr auto'};
