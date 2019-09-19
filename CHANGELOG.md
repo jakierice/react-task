@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/jakierice/react-task/compare/v0.1.3...v0.1.4) (2019-09-19)
+
+
+### Features
+
+* **alert-toast:** adds alert add trigger effect and component to home page ([ee84ed5](https://github.com/jakierice/react-task/commit/ee84ed5))
+* **alert-toast:** adds react spring animation and custom alert toast solution ([e302429](https://github.com/jakierice/react-task/commit/e302429))
+* **snapshot:** adds snapshot range slider ([61c610b](https://github.com/jakierice/react-task/commit/61c610b))
+
 ### [0.1.3](https://github.com/jakierice/react-task/compare/v0.1.2...v0.1.3) (2019-09-16)
 
 
