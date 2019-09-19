@@ -24,6 +24,7 @@ import {
   MetaInfoLayoutWrapper,
   ShowOnMobileOnly,
   ShowOnDesktopOnly,
+  HorizontalRule,
 } from '../styles/layout';
 import { FullScreenModal } from '../components/FullScreenModal';
 import { ToastList } from '../components/Toast';
@@ -37,6 +38,7 @@ import {
   CapitalText,
 } from '../components/typography';
 import { FormLabel, RangeSlider, FormRowWrapper } from '../components/Form';
+import { UnorderedList } from '../components/List';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -167,6 +169,7 @@ function Home() {
               >
                 Open connection
               </Button>
+              <HorizontalRule />
               <FormRowWrapper>
                 <FormLabel htmlFor="snapshot-size-slider">
                   Snapshot size: {snapshotSize}
@@ -257,21 +260,22 @@ function Home() {
             </BarChart>
           </ChartsLayoutWrapper>
           <MetaInfoLayoutWrapper>
-            <ToastList>{add => (toastListRef.current = add)}</ToastList>
+            <HorizontalRule />
             <StrongText>
               Current random number:{' '}
               {randomNumberData.currentRandomNumber.value}
             </StrongText>
             <SectionTitle>Log ({snapshot.length} items)</SectionTitle>
-            <ul>
+            <UnorderedList>
               {snapshot
                 .map((number, index) => (
                   <li key={number.timestamp + index}>{number.value}</li>
                 ))
                 .reverse()}
-            </ul>
+            </UnorderedList>
           </MetaInfoLayoutWrapper>
         </MainContentLayoutWrapper>
+        <ToastList>{add => (toastListRef.current = add)}</ToastList>
       </PageLayoutWrapper>
     </ThemeProvider>
   );

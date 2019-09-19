@@ -74,3 +74,11 @@ export const ShowOnMobileOnly = styled.div`
     display: none;
   }
 `;
+
+export const HorizontalRule = styled.hr`
+  width: 100%;
+  border: 0;
+  height: 0;
+  border-top: 1px solid ${({ theme }) => theme.gray};
+  border-bottom: 1px solid ${({ theme }) => theme.gray};
+`;
