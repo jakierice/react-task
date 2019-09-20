@@ -42,6 +42,7 @@
     "babel-eslint": "^10.0.3",
     "babel-preset-next": "^1.2.0",
     "eslint": "^6.4.0",
+    "eslint-plugin-jest": "^22.17.0",
     "eslint-plugin-react": "^7.14.3",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.9.0",
