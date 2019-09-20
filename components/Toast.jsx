@@ -141,7 +141,7 @@ ToastList.propTypes = {
     precision: PropTypes.number,
   }),
   timeout: PropTypes.number,
-  children: PropTypes.node,
+  children: PropTypes.func,
 };
 
 export default ToastList;
