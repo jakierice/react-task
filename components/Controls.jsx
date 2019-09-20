@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ControlsLayoutWrapper, HorizontalRule } from '../styles/layout';
-import { ShowOnDesktopOnly } from '../styles/layout';
 import { Button } from './Button';
 import { FormLabel, RangeSlider, FormRowWrapper } from './Form';
-// import styled from 'styled-components';
 
 function Controls(props) {
   const {
