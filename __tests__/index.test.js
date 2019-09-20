@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, waitForElement } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import '@testing-library/jest-dom/extend-expect';
 
@@ -16,8 +16,18 @@ afterAll(() => {
   console.warn = originalWarning;
 });
 
-test('index page loads', () => {
+test('Home component page loads', () => {
   const { getByTestId } = render(<Home />);
 
   expect(getByTestId('home-root')).toBeInTheDocument();
+});
+
+test('should not log more than snapshot value', () => {
+  const { getByLabelText, getByTestId } = render(<Home />);
+
+  const snapshotValue = getByLabelText('Snapshot size:', { exact: false })
+    .value;
+  const logList = getByTestId('log-list');
+
+  expect(logList.childElementCount).toBeLessThan(parseInt(snapshotValue));
 });
