@@ -82,3 +82,13 @@ export const HorizontalRule = styled.hr`
   border-top: 1px solid ${({ theme }) => theme.gray};
   border-bottom: 1px solid ${({ theme }) => theme.gray};
 `;
+
+export const PositionFixed = styled.div`
+  top: ${props => props.top}px;
+  right: ${props => props.right}px;
+  bottom: ${props => props.bottom}px;
+  left: ${props => props.left}px;
+  height: auto;
+  width: auto;
+  position: fixed;
+`;

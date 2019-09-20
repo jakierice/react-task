@@ -20,14 +20,14 @@ import {
   HeaderLayoutWrapper,
   MainContentLayoutWrapper,
   ChartsLayoutWrapper,
-  ControlsLayoutWrapper,
   MetaInfoLayoutWrapper,
   ShowOnMobileOnly,
   ShowOnDesktopOnly,
   HorizontalRule,
+  PositionFixed,
 } from '../styles/layout';
 import { FullScreenModal } from '../components/FullScreenModal';
-import { ToastList } from '../components/Toast';
+import ToastList from '../components/Toast';
 import { Button } from '../components/Button';
 import theme from '../styles/theme';
 import {
@@ -37,8 +37,10 @@ import {
   SmallText,
   CapitalText,
 } from '../components/typography';
-import { FormLabel, RangeSlider, FormRowWrapper } from '../components/Form';
 import { UnorderedList } from '../components/List';
+import Controls from '../components/Controls';
+import { PullTabButton } from '../components/PullTabButton';
+import { Sliders } from 'react-feather';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -137,6 +139,15 @@ function Home() {
       0,
     ),
   );
+  const controlsPropsBag = {
+    closeSocketConnection,
+    isSocketConnected,
+    openSocketConnection,
+    randomNumberAlertThreshold,
+    setRandomNumberAlertThreshold,
+    setSnapshotSize,
+    snapshotSize,
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -145,90 +156,20 @@ function Home() {
         <HeaderLayoutWrapper>
           <PageTitle>Entropy Party</PageTitle>
           <SmallText>
-            Connection status:{' '}
+            Connection:{' '}
             <CapitalText>{isSocketConnected ? 'open' : 'closed'}</CapitalText>
           </SmallText>
-          <ShowOnMobileOnly>
-            <Button type="button" onClick={() => setIsControlModalOpen(true)}>
-              Open chart controls
-            </Button>
-          </ShowOnMobileOnly>
         </HeaderLayoutWrapper>
         <MainContentLayoutWrapper>
-          <ControlsLayoutWrapper>
-            <ShowOnDesktopOnly>
-              <Button
-                onClick={closeSocketConnection}
-                disabled={!isSocketConnected}
-              >
-                Close connection
-              </Button>
-              <Button
-                onClick={openSocketConnection}
-                disabled={isSocketConnected}
-              >
-                Open connection
-              </Button>
-              <HorizontalRule />
-              <FormRowWrapper>
-                <FormLabel htmlFor="snapshot-size-slider">
-                  Snapshot size: {snapshotSize}
-                  <RangeSlider
-                    type="range"
-                    id="snapshot-size-slider"
-                    name="snapshot-size-slider"
-                    min="0"
-                    max="30"
-                    value={snapshotSize}
-                    onChange={event => setSnapshotSize(event.target.value)}
-                  />
-                </FormLabel>
-              </FormRowWrapper>
-              <FormLabel htmlFor="random-number-threshold-slider">
-                Alert threshold: {randomNumberAlertThreshold}
-                <RangeSlider
-                  type="range"
-                  id="random-number-threshold-slider"
-                  name="random-number-threshold-slider"
-                  min="0"
-                  max="100"
-                  value={randomNumberAlertThreshold}
-                  onChange={event =>
-                    setRandomNumberAlertThreshold(event.target.value)
-                  }
-                />
-              </FormLabel>
-            </ShowOnDesktopOnly>
-            <ShowOnMobileOnly>
-              <FullScreenModal isOpen={isControlModalOpen}>
-                <Button onClick={closeSocketConnection}>
-                  Close connection
-                </Button>
-                <Button onClick={openSocketConnection}>Open connection</Button>
-                <RangeSlider
-                  type="range"
-                  id="random-number-threshold-slider"
-                  name="random-number-threshold-slider"
-                  min="0"
-                  max="100"
-                  value={randomNumberAlertThreshold}
-                  onChange={event =>
-                    setRandomNumberAlertThreshold(event.target.value)
-                  }
-                />
-                <FormLabel htmlFor="random-number-threshold-slider">
-                  Random number alert threshold set to:{' '}
-                  {randomNumberAlertThreshold}
-                </FormLabel>
-                <Button
-                  type="button"
-                  onClick={() => setIsControlModalOpen(false)}
-                >
-                  Close chart controls
-                </Button>
-              </FullScreenModal>
-            </ShowOnMobileOnly>
-          </ControlsLayoutWrapper>
+          <ShowOnDesktopOnly>
+            <Controls {...controlsPropsBag} />
+          </ShowOnDesktopOnly>
+          <FullScreenModal isOpen={isControlModalOpen}>
+            <Controls {...controlsPropsBag} />
+            <Button onClick={() => setIsControlModalOpen(false)}>
+              Close controls
+            </Button>
+          </FullScreenModal>
           <ChartsLayoutWrapper ref={chartsLayoutWrapperRef}>
             <LineChart
               height={300}
@@ -275,6 +216,16 @@ function Home() {
             </UnorderedList>
           </MetaInfoLayoutWrapper>
         </MainContentLayoutWrapper>
+        <ShowOnMobileOnly>
+          <PositionFixed top={75} right={0}>
+            <PullTabButton
+              onClick={() => setIsControlModalOpen(true)}
+              aria-label="open chart controls."
+            >
+              <Sliders size={24} />
+            </PullTabButton>
+          </PositionFixed>
+        </ShowOnMobileOnly>
         <ToastList>{add => (toastListRef.current = add)}</ToastList>
       </PageLayoutWrapper>
     </ThemeProvider>

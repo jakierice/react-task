@@ -16,10 +16,14 @@ export const RangeSlider = styled.input.attrs({
 
   -webkit-appearance: none;
   height: 0.8rem;
-  background: ${({ theme }) => theme.lightGray};
+  background-color: ${({ theme }) => theme.lightGray};
   outline: none;
   padding: 0;
   margin: 1.2rem 0;
+
+  &:focus {
+    background-color: ${({ theme }) => theme.white};
+  }
 
   // Range Handle
   &::-webkit-slider-thumb {

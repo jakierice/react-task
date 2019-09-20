@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { X } from 'react-feather';
 import { useTransition } from 'react-spring';
@@ -37,8 +38,8 @@ export const ToastMessageWrapper = styled(Alert)`
 const AnimatedToastWrapper = animated(ToastMessageWrapper);
 
 export const Content = styled.div`
-  color: ${({ theme }) => theme.white};;
-  background: ${({ theme }) => theme.gray};;
+  color: ${({ theme }) => theme.white};
+  background: ${({ theme }) => theme.gray};
   opacity: 0.9;
   padding: 1.2rem 1.8rem;
   font-size: 1rem;
@@ -76,13 +77,14 @@ export const Life = styled(animated.div)`
   bottom: ${props => (props.top ? '10px' : '0')};
   left: 0px;
   width: auto;
-  background-image: ${({ theme }) => `linear-gradient(130deg, ${theme.pink}, ${theme.red})`};
+  background-image: ${({ theme }) =>
+    `linear-gradient(130deg, ${theme.pink}, ${theme.red})`};
   height: 5px;
 `;
 
 let id = 0;
 
-export function ToastList({
+function ToastList({
   config = { tension: 125, friction: 20, precision: 0.1 },
   timeout = 3000,
   children,
@@ -131,3 +133,15 @@ export function ToastList({
     </Container>
   );
 }
+
+ToastList.propTypes = {
+  config: PropTypes.shape({
+    tension: PropTypes.number,
+    friction: PropTypes.number,
+    precision: PropTypes.number,
+  }),
+  timeout: PropTypes.number,
+  children: PropTypes.node,
+};
+
+export default ToastList;
