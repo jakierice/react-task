@@ -5,6 +5,8 @@
 
 ## Overview
 
+The following sections detail various aspects of the Entropy Party application. Please review the [CHANGELOG](./CHANGELOG.md) for a historical outline of the development phases of this application.
+
 ### Technologies Used
 
 #### [Next.js](https://nextjs.org)
