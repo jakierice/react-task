@@ -177,7 +177,7 @@ function Home() {
               {randomNumberData.currentRandomNumber.value}
             </StrongText>
             <SectionTitle>Log ({snapshot.length} items)</SectionTitle>
-            <UnorderedList>
+            <UnorderedList data-testid="log-list">
               {snapshot
                 .map((number, index) => (
                   <li key={number.timestamp + index}>{number.value}</li>
