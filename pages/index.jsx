@@ -1,6 +1,7 @@
+// external package imports
 import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
-import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import useResizeObserver from 'use-resize-observer';
 import {
   LineChart,
@@ -14,8 +15,20 @@ import {
   Bar,
 } from 'recharts';
 import dayjs from 'dayjs';
+import { Sliders } from 'react-feather';
 
-import Header from '../components/Header';
+// local package imports
+import {
+  Header,
+  FullScreenModal,
+  Toast,
+  Button,
+  SectionTitle,
+  StrongText,
+  UnorderedList,
+  Controls,
+  PullTabButton,
+} from '../components';
 import {
   PageLayoutWrapper,
   MainContentLayoutWrapper,
@@ -25,34 +38,9 @@ import {
   ShowOnDesktopOnly,
   HorizontalRule,
   PositionFixed,
-} from '../styles/layout';
-import { FullScreenModal } from '../components/FullScreenModal';
-import ToastList from '../components/Toast';
-import { Button } from '../components/Button';
-import theme from '../styles/theme';
-import { SectionTitle, StrongText } from '../components/typography';
-import { UnorderedList } from '../components/List';
-import Controls from '../components/Controls';
-import { PullTabButton } from '../components/PullTabButton';
-import { Sliders } from 'react-feather';
-
-const GlobalStyle = createGlobalStyle`
-  body {
-    margin: 0;
-    background-color: ${({ theme }) => theme.darkGray};
-    font-family: Arial, Helvetica, sans-serif;
-  }
-
-  * {
-    box-sizing: border-box;
-  }
-
-  @media screen and (max-width: 425px) {
-    body {
-      padding: 0;
-    }
-  }
-`;
+  theme,
+  GlobalStyles
+} from '../styles';
 
 function Home() {
   const { current: socket } = useRef(io());
@@ -146,7 +134,7 @@ function Home() {
   return (
     <ThemeProvider theme={theme}>
       <PageLayoutWrapper>
-        <GlobalStyle />
+        <GlobalStyles />
         <Header isSocketConnected={isSocketConnected} />
         <MainContentLayoutWrapper>
           <ShowOnDesktopOnly>
@@ -214,7 +202,7 @@ function Home() {
             Close controls
           </Button>
         </FullScreenModal>
-        <ToastList>{add => (toastListRef.current = add)}</ToastList>
+        <Toast>{add => (toastListRef.current = add)}</Toast>
       </PageLayoutWrapper>
     </ThemeProvider>
   );

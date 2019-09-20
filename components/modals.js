@@ -15,3 +15,5 @@ export const FullScreenModal = styled(Dialog)`
   flex-direction: column;
   background-color: ${({ theme }) => theme.darkGray};
 `;
+
+// would add other styles of modals to this module in the future
