@@ -5,3 +5,5 @@ export const UnorderedList = styled.ul`
   padding: 0;
   color: ${({ theme }) => theme.white};
 `;
+
+// would eventually add OrderedList component to this file

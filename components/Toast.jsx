@@ -9,7 +9,7 @@ import Alert from '@reach/alert';
 export const Container = styled.div`
   position: fixed;
   z-index: 1000;
-  width: 0 auto;
+  width: auto;
   top: ${props => (props.top ? '30px' : 'unset')};
   bottom: ${props => (props.top ? 'unset' : '30px')};
   margin: 0 auto;
@@ -54,7 +54,7 @@ export const Content = styled.div`
   margin-bottom: ${props => (props.top ? '10px' : '0')};
 `;
 
-export const Button = styled.div`
+export const CloseButton = styled.div`
   cursor: pointer;
   pointer-events: all;
   outline: 0;
@@ -119,14 +119,14 @@ function ToastList({
           <Content ref={ref => ref && refMap.set(item, ref)}>
             <Life style={{ right: life }} />
             <p>{item.msg}</p>
-            <Button
+            <CloseButton
               onClick={e => {
                 e.stopPropagation();
                 cancelMap.has(item) && cancelMap.get(item)();
               }}
             >
               <X size={18} />
-            </Button>
+            </CloseButton>
           </Content>
         </AnimatedToastWrapper>
       ))}

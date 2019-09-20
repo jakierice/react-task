@@ -20,4 +20,5 @@ export const Button = styled.button`
   }
 `;
 
-export const SecondayButton = styled.button``;
+// would add SecondaryButton, TertiaryButton, and IconButtons to this module
+// in the future

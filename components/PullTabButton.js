@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const PullTabButton = styled.button`
+const PullTabButton = styled.button`
   border-radius: 50% 0 0 50%;
   padding: 0.6rem;
   background-color: ${({ theme }) => theme.blue};
@@ -13,3 +13,5 @@ export const PullTabButton = styled.button`
     background-color: ${({ theme }) => theme.yellow};
   }
 `;
+
+export default PullTabButton;

@@ -1,6 +1,7 @@
+// external package imports
 import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
-import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import useResizeObserver from 'use-resize-observer';
 import {
   LineChart,
@@ -14,10 +15,22 @@ import {
   Bar,
 } from 'recharts';
 import dayjs from 'dayjs';
+import { Sliders } from 'react-feather';
 
+// local package imports
+import {
+  Header,
+  FullScreenModal,
+  Toast,
+  Button,
+  SectionTitle,
+  StrongText,
+  UnorderedList,
+  Controls,
+  PullTabButton,
+} from '../components';
 import {
   PageLayoutWrapper,
-  HeaderLayoutWrapper,
   MainContentLayoutWrapper,
   ChartsLayoutWrapper,
   MetaInfoLayoutWrapper,
@@ -25,40 +38,9 @@ import {
   ShowOnDesktopOnly,
   HorizontalRule,
   PositionFixed,
-} from '../styles/layout';
-import { FullScreenModal } from '../components/FullScreenModal';
-import ToastList from '../components/Toast';
-import { Button } from '../components/Button';
-import theme from '../styles/theme';
-import {
-  PageTitle,
-  SectionTitle,
-  StrongText,
-  SmallText,
-  CapitalText,
-} from '../components/typography';
-import { UnorderedList } from '../components/List';
-import Controls from '../components/Controls';
-import { PullTabButton } from '../components/PullTabButton';
-import { Sliders } from 'react-feather';
-
-const GlobalStyle = createGlobalStyle`
-  body {
-    margin: 0;
-    background-color: ${({ theme }) => theme.darkGray};
-    font-family: Arial, Helvetica, sans-serif;
-  }
-
-  * {
-    box-sizing: border-box;
-  }
-
-  @media screen and (max-width: 425px) {
-    body {
-      padding: 0;
-    }
-  }
-`;
+  theme,
+  GlobalStyles
+} from '../styles';
 
 function Home() {
   const { current: socket } = useRef(io());
@@ -152,30 +134,18 @@ function Home() {
   return (
     <ThemeProvider theme={theme}>
       <PageLayoutWrapper>
-        <GlobalStyle />
-        <HeaderLayoutWrapper>
-          <PageTitle>Entropy Party</PageTitle>
-          <SmallText>
-            Connection:{' '}
-            <CapitalText>{isSocketConnected ? 'open' : 'closed'}</CapitalText>
-          </SmallText>
-        </HeaderLayoutWrapper>
+        <GlobalStyles />
+        <Header isSocketConnected={isSocketConnected} />
         <MainContentLayoutWrapper>
           <ShowOnDesktopOnly>
             <Controls {...controlsPropsBag} />
           </ShowOnDesktopOnly>
-          <FullScreenModal isOpen={isControlModalOpen}>
-            <Controls {...controlsPropsBag} />
-            <Button onClick={() => setIsControlModalOpen(false)}>
-              Close controls
-            </Button>
-          </FullScreenModal>
           <ChartsLayoutWrapper ref={chartsLayoutWrapperRef}>
             <LineChart
               height={300}
               width={chartsLayoutWrapperWidth - 16}
               data={snapshot}
-              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+              margin={{ top: 5, right: 10, left: 10, bottom: 5 }}
               syncId="random-number-chart"
             >
               <CartesianGrid strokeDasharray="3 3" />
@@ -189,7 +159,7 @@ function Home() {
               height={300}
               width={chartsLayoutWrapperWidth - 16}
               data={snapshot}
-              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+              margin={{ top: 5, right: 10, left: 10, bottom: 5 }}
               syncId="random-number-chart"
             >
               <CartesianGrid strokeDasharray="3 3" />
@@ -226,7 +196,13 @@ function Home() {
             </PullTabButton>
           </PositionFixed>
         </ShowOnMobileOnly>
-        <ToastList>{add => (toastListRef.current = add)}</ToastList>
+        <FullScreenModal isOpen={isControlModalOpen}>
+          <Controls {...controlsPropsBag} />
+          <Button onClick={() => setIsControlModalOpen(false)}>
+            Close controls
+          </Button>
+        </FullScreenModal>
+        <Toast>{add => (toastListRef.current = add)}</Toast>
       </PageLayoutWrapper>
     </ThemeProvider>
   );
