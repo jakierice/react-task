@@ -112,6 +112,11 @@ Deployment is automatically done once a new Pull Request is merged into the `mas
 now
 ```
 
+## Known Issues
+
+1. "Open connection" button sometimes requires two clicks to establish a fully opened connection. Root cause unknown.
+2. Threshold and snapshot slider controls do not respond well to touch dragging on mobile devices.
+
 ## Future Development
 
 Further planned feature development and improvements that could be made to the Entropy Party application are:
