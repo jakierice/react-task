@@ -133,7 +133,7 @@ function Home() {
 
   return (
     <ThemeProvider theme={theme}>
-      <PageLayoutWrapper>
+      <PageLayoutWrapper data-testid="home-root">
         <GlobalStyles />
         <Header isSocketConnected={isSocketConnected} />
         <MainContentLayoutWrapper>
