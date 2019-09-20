@@ -55,7 +55,7 @@ function Controls(props) {
 }
 
 Controls.propTypes = {
-  closeSocketConnection: PropTypes.bool,
+  closeSocketConnection: PropTypes.func,
   isSocketConnected: PropTypes.bool,
   openSocketConnection: PropTypes.func,
   randomNumberAlertThreshold: PropTypes.number,

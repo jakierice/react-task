@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/jakierice/react-task/compare/v1.0.0...v1.1.0) (2019-09-20)
+
+
+### Bug Fixes
+
+* **testing:** silence react deprecation console warnings in test ([c63ecb0](https://github.com/jakierice/react-task/commit/c63ecb0))
+* changes proptypes for Toast and Controls to use correct types ([1f020fa](https://github.com/jakierice/react-task/commit/1f020fa))
+
+
+### Features
+
+* **testing:** add mock for css imports specific to reach dialog ([8bb2dc5](https://github.com/jakierice/react-task/commit/8bb2dc5))
+* **testing:** adds log item quantity test for snapshot ([d2a30ce](https://github.com/jakierice/react-task/commit/d2a30ce))
+* **testing:** adds required config for react testing ([958eb9c](https://github.com/jakierice/react-task/commit/958eb9c))
+* **testing:** adds test id testing selector to home root ([69dbd6a](https://github.com/jakierice/react-task/commit/69dbd6a))
+* **testing:** adds test id testing selector to log list ([0bf4c79](https://github.com/jakierice/react-task/commit/0bf4c79))
+* **testing:** adds tests for updating threshold and snaphot range inputs ([7ea7fc7](https://github.com/jakierice/react-task/commit/7ea7fc7))
+* **testing:** adds tests watch script and style mock proxy ([6d33a63](https://github.com/jakierice/react-task/commit/6d33a63))
+* **testing:** configure eslint to work with jest ([e47ebae](https://github.com/jakierice/react-task/commit/e47ebae))
+
 ## [1.0.0](https://github.com/jakierice/react-task/compare/v0.1.5...v1.0.0) (2019-09-20)
 
 
