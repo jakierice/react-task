@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/jakierice/react-task/compare/v0.1.5...v1.0.0) (2019-09-20)
+
+
+### Bug Fixes
+
+* **CHANGELOG:** remove redundant entries from improper CICD config ([f5c300b](https://github.com/jakierice/react-task/commit/f5c300b))
+* **layout:** set page layout width to auto for x overflow issue ([b9bd829](https://github.com/jakierice/react-task/commit/b9bd829))
+
 ### [0.1.5](https://github.com/jakierice/react-task/compare/v0.1.4...v0.1.5) (2019-09-20)
 
 
