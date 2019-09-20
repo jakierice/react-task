@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 
 export const PageLayoutWrapper = styled.div`
-  padding: 0.8rem;
   display: grid;
-  width: 100vw;
+  width: auto;
   height: 100vh;
   grid-template-areas:
-    'head'
+    'header'
     'main'
     'footer';
   grid-template-rows: minmax(4rem, auto) 1fr 1fr;
@@ -14,11 +13,12 @@ export const PageLayoutWrapper = styled.div`
 `;
 
 export const HeaderLayoutWrapper = styled.header`
-  grid-row: head;
-  grid-column: head;
+  grid-row: header;
+  grid-column: header;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  padding: 0.4rem;
 `;
 
 export const MainContentLayoutWrapper = styled.main`

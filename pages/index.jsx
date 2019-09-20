@@ -15,9 +15,9 @@ import {
 } from 'recharts';
 import dayjs from 'dayjs';
 
+import Header from '../components/Header';
 import {
   PageLayoutWrapper,
-  HeaderLayoutWrapper,
   MainContentLayoutWrapper,
   ChartsLayoutWrapper,
   MetaInfoLayoutWrapper,
@@ -30,13 +30,7 @@ import { FullScreenModal } from '../components/FullScreenModal';
 import ToastList from '../components/Toast';
 import { Button } from '../components/Button';
 import theme from '../styles/theme';
-import {
-  PageTitle,
-  SectionTitle,
-  StrongText,
-  SmallText,
-  CapitalText,
-} from '../components/typography';
+import { SectionTitle, StrongText } from '../components/typography';
 import { UnorderedList } from '../components/List';
 import Controls from '../components/Controls';
 import { PullTabButton } from '../components/PullTabButton';
@@ -153,29 +147,17 @@ function Home() {
     <ThemeProvider theme={theme}>
       <PageLayoutWrapper>
         <GlobalStyle />
-        <HeaderLayoutWrapper>
-          <PageTitle>Entropy Party</PageTitle>
-          <SmallText>
-            Connection:{' '}
-            <CapitalText>{isSocketConnected ? 'open' : 'closed'}</CapitalText>
-          </SmallText>
-        </HeaderLayoutWrapper>
+        <Header isSocketConnected={isSocketConnected} />
         <MainContentLayoutWrapper>
           <ShowOnDesktopOnly>
             <Controls {...controlsPropsBag} />
           </ShowOnDesktopOnly>
-          <FullScreenModal isOpen={isControlModalOpen}>
-            <Controls {...controlsPropsBag} />
-            <Button onClick={() => setIsControlModalOpen(false)}>
-              Close controls
-            </Button>
-          </FullScreenModal>
           <ChartsLayoutWrapper ref={chartsLayoutWrapperRef}>
             <LineChart
               height={300}
               width={chartsLayoutWrapperWidth - 16}
               data={snapshot}
-              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+              margin={{ top: 5, right: 10, left: 10, bottom: 5 }}
               syncId="random-number-chart"
             >
               <CartesianGrid strokeDasharray="3 3" />
@@ -189,7 +171,7 @@ function Home() {
               height={300}
               width={chartsLayoutWrapperWidth - 16}
               data={snapshot}
-              margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+              margin={{ top: 5, right: 10, left: 10, bottom: 5 }}
               syncId="random-number-chart"
             >
               <CartesianGrid strokeDasharray="3 3" />
@@ -226,6 +208,12 @@ function Home() {
             </PullTabButton>
           </PositionFixed>
         </ShowOnMobileOnly>
+        <FullScreenModal isOpen={isControlModalOpen}>
+          <Controls {...controlsPropsBag} />
+          <Button onClick={() => setIsControlModalOpen(false)}>
+            Close controls
+          </Button>
+        </FullScreenModal>
         <ToastList>{add => (toastListRef.current = add)}</ToastList>
       </PageLayoutWrapper>
     </ThemeProvider>
