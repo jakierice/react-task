@@ -13,5 +13,5 @@ export const FullScreenModal = styled(Dialog)`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background: #191d32;
+  background-color: ${({ theme }) => theme.darkGray};
 `;
