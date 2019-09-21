@@ -5,6 +5,8 @@
 
 ## Overview
 
+The following sections detail various aspects of the Entropy Party application. Please review the [CHANGELOG](./CHANGELOG.md) for a historical outline of the development phases of this application.
+
 ### Technologies Used
 
 #### [Next.js](https://nextjs.org)
@@ -109,6 +111,11 @@ Deployment is automatically done once a new Pull Request is merged into the `mas
 ```bash
 now
 ```
+
+## Known Issues
+
+1. "Open connection" button sometimes requires two clicks to establish a fully opened connection. Root cause unknown.
+2. Threshold and snapshot slider controls do not respond well to touch dragging on mobile devices.
 
 ## Future Development
 
