@@ -15,6 +15,7 @@ import {
   Bar,
 } from 'recharts';
 import dayjs from 'dayjs';
+import IdleTimer from 'react-idle-timer';
 import { Sliders } from 'react-feather';
 
 // local package imports
@@ -39,7 +40,7 @@ import {
   HorizontalRule,
   PositionFixed,
   theme,
-  GlobalStyles
+  GlobalStyles,
 } from '../styles';
 
 function Home() {
@@ -131,9 +132,21 @@ function Home() {
     snapshotSize,
   };
 
+  let idleTimer = null;
+
   return (
     <ThemeProvider theme={theme}>
       <PageLayoutWrapper data-testid="home-root">
+        <IdleTimer
+          ref={ref => {
+            if (idleTimer === null) {
+              idleTimer = ref;
+            }
+          }}
+          onActive={openSocketConnection}
+          onIdle={closeSocketConnection}
+          timeout={1000 * 60 * 2.5}
+        />
         <GlobalStyles />
         <Header isSocketConnected={isSocketConnected} />
         <MainContentLayoutWrapper>
