@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/jakierice/react-task/compare/v1.1.0...v1.2.0) (2019-09-21)
+
+
+### Features
+
+* **docs:** adds CHANGELOG link to README overview section ([c20a2f8](https://github.com/jakierice/react-task/commit/c20a2f8))
+* **idle-timeout:** adds auto close connection if user is idle for 2.5 minutes ([f00024a](https://github.com/jakierice/react-task/commit/f00024a))
+
 ## [1.1.0](https://github.com/jakierice/react-task/compare/v1.0.0...v1.1.0) (2019-09-20)
 
 
