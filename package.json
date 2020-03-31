@@ -22,7 +22,7 @@
     "dotenv": "^6.2.0",
     "dotenv-expand": "^4.2.0",
     "express": "^4.16.4",
-    "next": "^9.0.5",
+    "next": "^9.3.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-feather": "^2.0.3",
