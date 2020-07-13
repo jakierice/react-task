@@ -48,6 +48,6 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.9.0",
     "prop-types": "^15.7.2",
-    "standard-version": "^7.0.0"
+    "standard-version": "^8.0.1"
   }
 }
